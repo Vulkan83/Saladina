@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Hydroponic Dashboard</title>
+        
+        <!-- css files -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="fa/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="client/css/mbbox.css"/>
+        <link rel="stylesheet" href="client/css/style.css"/>
+        
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:void(0)">Hydroponic Dashboard</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <strong class="form-control">
+                                <i class="fa fa-users"></i>
+                                <span id="totalUser">0</span>
+                            </strong>
+                        </div>
+                        <button type="button" class="btn btn-success" id="toggle-pump">
+                            <i class="fa fa-play"></i>
+                            pump on
+                        </button>
+                    </form>
+                </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
+        
+        <div class="container" id="wrapper">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="alert alert-info text-center">
+                        <h3>
+                            <i class="fa fa-lightbulb-o"></i>&nbsp;
+                            Light Level: <span id="label-light"> 0 </span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="alert alert-info text-center">
+                        <h3>
+                            <i class="fa fa-globe"></i>&nbsp;
+                            Temp: <span id="label-temperature"> 0 </span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="alert alert-info text-center">
+                        <h3>
+                            <i class="fa fa-tint"></i>&nbsp;
+                            Moisture: <span id="label-temperature"> 0 </span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                
+                <div class="col-sm-8"></div>
+                
+                <div class="col-sm-4">
+                    <div class="alert alert-info text-center">
+                        <div class="pull-right">
+                            <a class="btn btn-default js-geolocation" style="display: none;" title="geolocation">
+                                <i class="fa fa-compass"></i>
+                            </a>                        
+                        </div>
+                        <div id="weather">
+                            <img class="img-responsive img-responsive-center thumbnail">
+                            <h3>
+                                <span  class="city">city</span>
+                                <br>
+                                <small class="currently">currently</small>
+                            </h3>
+                            <ul class="list-inline">
+                                <li>
+                                    sunrise
+                                    <span class="sunrise"></span>
+                                </li>
+                                <li>
+                                    sunset
+                                    <span class="sunset"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+                
+        </div>
+
+        <!-- javascript files -->
+         <script src="jquery/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="client/plugins/jquery.simpleWeather/jquery.simpleWeather.min.js"></script>
+        <script src="client/js/main.js"></script>
+
+    </body>
+</html>
