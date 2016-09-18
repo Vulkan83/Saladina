@@ -1,75 +1,71 @@
 /*============================ require ==============================*/
 var mraa = require('mraa'); //require mraa
 
-/*============================ module ==============================*/
-var Water = {
+/*============================ export module ==============================*/
+module.exports = function () {
 		
-    waterPump: "",
-    pumpStatus: false,
-    pumpIsActivable: true,
+    this.waterPump;
+    this.pumpStatus = false;
+    this.pumpIsActivable = true;
     
-    waterLevelController: "",
-    lowLevelWater: false,
+    this.waterLowLevelController;
+    this.lowLevelWater = false;
 
     
-    SetWaterPump: function (pin) {
+    this.setWaterPump =  function (pin) {
         this.waterPump = new mraa.Gpio(pin);
         this.waterPump.dir(mraa.DIR_OUT);
-    },
+    }
     
     
-    SetLevelController: function (pin) {
-        this.waterLevelController = new mraa.Gpio(pin);
-        this.waterLevelController.dir(mraa.DIR_IN);
-    },
+    this.setLevelController = function (pin) {
+        this.waterLowLevelController = new mraa.Gpio(pin);
+        this.waterLowLevelController.dir(mraa.DIR_IN);
+    }
     
     
-    ReadlowLevelWater: function () {
-        this.lowLevelWater = this.waterLevelController.read();
-    },
+    this.readLowLevelWater = function () {
+        this.lowLevelWater = this.waterLowLevelController.read();
+        return this.lowLevelWater;
+    }
 
     
-    WaterPumpON: function() {
+    this.setPumpAccess = function (activable) {
+        this.pumpIsActivable = activable;  
+    }
+        
+    
+    this.waterPumpON = function() {
         if(this.pumpIsActivable) {
+            console.log('attivo la pompa');
             this.pumpStatus = true;
             this.waterPump.write(1);
-        }
-    },
-    
-    
-    WaterPunpOFF: function() {
-        this.pumpStatus: false,
-        this.waterPump.write(0);
-    },
-
-    
-    BlockWaterPump: function() {
-        if(this.pumpIsActivable) {
-            this.waterPump.write(0);
-            this.status = false;
-        }
-    },
-    
-    
-    ReactivateWaterPump: function () {
-        this.pumpIsActivable = true;  
-    },
-
-    
-    checkWaterLevel: function() {
-        if(this.lowLevelWater) {
-            this.BlockWaterPump();
-            this.pumpIsActivable = false;
-        } else {
-            this.ReactivateWaterPump();
         }
     }
     
     
+    this.waterPumpOFF = function() {
+        console.log('disattivo la pompa');
+        this.pumpStatus = false,
+        this.waterPump.write(0);
+    }
+
     
-	
+    this.blockWaterPump = function() {
+        if(this.pumpIsActivable) {
+            this.waterPumpOFF();
+            this.setPumpAccess(false);
+        }
+    }
+
+    
+    this.checkWaterLevel = function() {
+        if(this.lowLevelWater) {
+            this.BlockWaterPump();
+        } else {
+            this.setPumpAccess(false);
+        }
+    }
+    
+    
 };
-
-
-/*============================ export module ==============================*/
-module.exports = Water;

@@ -3,23 +3,19 @@ var mraa = require('mraa'); //require mraa
 var groveSensor = require('jsupm_grove');
 
 
-/*============================ module ==============================*/
-var Light = {
-		
-        sensor: "",
-        sensorValue: "",
-    
-        setSensor: function (pin) {
-            this.sensor = groveSensor.GroveTemp(pin);
-        },
-    
-        readSensorValue: function () {
-            this.sensorValue = this.sensor.value();
-        }
-    
-	
-};
-
-
 /*============================ export module ==============================*/
-module.exports = Light;
+module.exports = function (pin) {
+    	
+    this.sensor;
+    this.sensorValue;
+    
+    this.setSensor = function (pin) {
+        this.sensor = new groveSensor.GroveTemp(pin);
+    }
+    
+    this.readSensorValue = function () {
+        this.sensorValue = this.sensor.value();
+        return this.sensorValue;
+    }
+    	
+};

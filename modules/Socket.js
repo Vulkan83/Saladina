@@ -13,7 +13,7 @@ module.exports.listen = function(server, water){
         console.log('user connected');
         connectedUsers += 1;
         io.sockets.emit('update_user_number', {totalUser:connectedUsers});
-
+        socket.emit('set_status', {pumpStatus:water.pumpStatus, isActivable:water.isActivable});
         
         socket.on('disconnect', function() {
             console.log('user disconnect');
@@ -22,13 +22,19 @@ module.exports.listen = function(server, water){
         });
         
         
+        socket.on('get_status', function() {
+            socket.emit('set_status', {pumpStatus:water.pumpStatus, isActivable:water.isActivable});
+        });
+        
+        
         socket.on('toggle_pump', function() {
+            console.log("pompa: "+water.pumpStatus);
             water.pumpStatus = !water.pumpStatus
             if(water.pumpStatus) {
-                water.WaterPumpON();
+                water.waterPumpON();
                 io.sockets.emit('water_pump_on');
             } else {
-                water.WaterPumpOFF();
+                water.waterPumpOFF();
                 io.sockets.emit('water_pump_off');
             }
         });
